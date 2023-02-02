@@ -1,0 +1,29 @@
+{
+    "name": "chestnut/router",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Pogodda",
+            "email": "daniel.pogodda@googlemail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Chestnut\\Router\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Chestnut\\Router\\Tests\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.9",
+        "friendsofphp/php-cs-fixer": "^3.14"
+    }
+}
