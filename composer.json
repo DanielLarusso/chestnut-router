@@ -15,7 +15,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Chestnut\\Router\\Tests\\": "src/"
+            "Chestnut\\Router\\Tests\\": "tests/"
         }
     },
     "require": {
