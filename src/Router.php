@@ -12,11 +12,9 @@ class Router
 {
     public const REQUEST_METHOD_GET = 'get';
 
-    /**
-     * @param Resolver $resolver
-     * @param array<string> $routes
-     */
-    public function __construct(private readonly Resolver $resolver, private array $routes = [])
+    private array $routes = [];
+
+    public function __construct(private readonly Resolver $resolver)
     {
     }
 
