@@ -34,7 +34,7 @@ class Router
         return $this;
     }
 
-    public function registerRoutesFromController(AbstractController $controller): static
+    public function registerRoutesFromController(string $controller): static
     {
         $controllerReflection = new ReflectionClass($controller);
 
