@@ -10,9 +10,14 @@ use ReflectionClass;
 
 class Router
 {
-    private array $routes = [];
+    public const REQUEST_METHOD_GET = 'get';
+    public const REQUEST_METHOD_POST = 'post';
 
-    public function __construct(private Resolver $resolver)
+    /**
+     * @param Resolver $resolver
+     * @param array<string> $routes
+     */
+    public function __construct(private readonly Resolver $resolver, private array $routes = [])
     {
     }
 
@@ -42,12 +47,12 @@ class Router
 
     public function get(string $route, callable|array $action): static
     {
-        return $this->register('get', $route, $action);
+        return $this->register(self::REQUEST_METHOD_GET, $route, $action);
     }
 
     public function post(string $route, callable|array $action): static
     {
-        return $this->register('post', $route, $action);
+        return $this->register(self::REQUEST_METHOD_POST, $route, $action);
     }
 
     public function routes(): array
