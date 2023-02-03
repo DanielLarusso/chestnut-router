@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Chestnut\Router;
 
+use Chestnut\Controller\AbstractController;
 use Chestnut\Router\Attributes\Route;
-use Psr\Container\ContainerInterface;
 use ReflectionClass;
 
 class Router
 {
     public const REQUEST_METHOD_GET = 'get';
-    public const REQUEST_METHOD_POST = 'post';
 
     /**
      * @param Resolver $resolver
@@ -28,31 +27,30 @@ class Router
         return $this;
     }
 
-    public function registerRoutesFromControllerAttributes(array $controllers): static
+    public function registerRoutesFromControllerList(array $controllers): static
     {
         foreach ($controllers as $controller) {
-            $controllerReflection = new ReflectionClass($controller);
+            $this->registerRoutesFromController($controller);
+        }
 
-            foreach ($controllerReflection->getMethods() as $method) {
-                $attributes = $method->getAttributes(Route::class);
+        return $this;
+    }
 
-                foreach ($attributes as $attribute) {
-                    $route = $attribute->newInstance();
+    public function registerRoutesFromController(AbstractController $controller): static
+    {
+        $controllerReflection = new ReflectionClass($controller);
 
-                    $this->register($route->method, $route->path, [$controller, $method->getName()]);
-                }
+        foreach ($controllerReflection->getMethods() as $method) {
+            $attributes = $method->getAttributes(Route::class);
+
+            foreach ($attributes as $attribute) {
+                $route = $attribute->newInstance();
+
+                $this->register($route->method, $route->path, [$controller, $method->getName()]);
             }
         }
-    }
 
-    public function get(string $route, callable|array $action): static
-    {
-        return $this->register(self::REQUEST_METHOD_GET, $route, $action);
-    }
-
-    public function post(string $route, callable|array $action): static
-    {
-        return $this->register(self::REQUEST_METHOD_POST, $route, $action);
+        return $this;
     }
 
     public function routes(): array
@@ -60,7 +58,7 @@ class Router
         return $this->routes;
     }
 
-    public function resolve(string $requestUri, string $requestMethod)
+    public function resolve(string $requestUri, string $requestMethod): mixed
     {
         return $this->resolver->resolve($requestUri, $requestMethod, $this->routes);
     }
