@@ -12,7 +12,8 @@ return $config
     ->setRules([
         '@PSR12' => true,
     ])
-    ->setFinder(PhpCsFixer\Finder::create()
+    ->setFinder(
+        PhpCsFixer\Finder::create()
         // ->exclude('folder-to-exclude') // if you want to exclude some folders, you can do it like this!
         ->in(__DIR__)
     )
