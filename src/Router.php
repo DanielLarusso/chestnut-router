@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Chestnut\Router;
 
-use Chestnut\Controller\AbstractController;
 use Chestnut\Router\Attributes\Route;
 use ReflectionClass;
 
 class Router
 {
-    public const REQUEST_METHOD_GET = 'get';
-
     private array $routes = [];
 
     public function __construct(private readonly Resolver $resolver)
