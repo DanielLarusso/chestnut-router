@@ -4,20 +4,28 @@ declare(strict_types=1);
 
 namespace Chestnut\Router;
 
-use Chestnut\Router\Attributes\Route;
+use Chestnut\Router\Attribute\Route;
 use ReflectionClass;
 
-class Router
+class Router implements RouterInterface
 {
-    private array $routes = [];
-
-    public function __construct(private readonly Resolver $resolver)
+    public function __construct(
+        private readonly ResolverInterface $resolver,
+        private RouteCollection $routes
+    )
     {
     }
 
-    public function register(string $requestMethod, string $route, callable|array $action): static
+    // todo: enum RequestMethod
+    // todo: action should be an object
+    // todo: route should be an object
+    public function register(RouteInterface $route): self
     {
-        $this->routes[$requestMethod][$route] = $action;
+        if ($this->routes->hasElement($route)) {
+            return $this;
+        }
+
+        $this->routes->addElement($route);
 
         return $this;
     }
@@ -48,11 +56,13 @@ class Router
         return $this;
     }
 
+    // todo: return routesCollection
     public function routes(): array
     {
         return $this->routes;
     }
 
+    // todo Request object as param
     public function resolve(string $requestUri, string $requestMethod): mixed
     {
         return $this->resolver->resolve($requestUri, $requestMethod, $this->routes);
