@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Chestnut\Router;
 
-class Factory
+use Chestnut\Utils\AbstractFactory;
+
+class Factory extends AbstractFactory
 {
     public function createRouteCollection(): RouteCollection
     {

@@ -18,6 +18,12 @@
             "Chestnut\\Router\\Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/DanielLarusso/chestnut-utils"
+        }
+    ],
     "require": {
         "php": "^8.2"
     },
