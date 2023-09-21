@@ -7,8 +7,10 @@ namespace Chestnut\Router;
 use Chestnut\Router\Exception\RouteNotFoundException;
 
 use function call_user_func;
+use function class_exists;
 use function explode;
 use function is_callable;
+use function method_exists;
 
 class Resolver implements ResolverInterface
 {

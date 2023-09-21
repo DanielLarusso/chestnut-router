@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Chestnut\Router;
 
+use Chestnut\Http\RequestMethod;
 use Chestnut\Router\Attribute\Route;
 use ReflectionClass;
 
@@ -12,8 +13,7 @@ class Router implements RouterInterface
     public function __construct(
         private readonly ResolverInterface $resolver,
         private RouteCollection $routes
-    )
-    {
+    ) {
     }
 
     // todo: enum RequestMethod
@@ -45,6 +45,7 @@ class Router implements RouterInterface
 
         foreach ($controllerReflection->getMethods() as $method) {
             $attributes = $method->getAttributes(Route::class);
+            $method->getParameters();
 
             foreach ($attributes as $attribute) {
                 $route = $attribute->newInstance();
@@ -63,7 +64,7 @@ class Router implements RouterInterface
     }
 
     // todo Request object as param
-    public function resolve(string $requestUri, string $requestMethod): mixed
+    public function resolve(string $requestUri, RequestMethod $requestMethod): mixed
     {
         return $this->resolver->resolve($requestUri, $requestMethod, $this->routes);
     }

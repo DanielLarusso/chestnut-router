@@ -12,7 +12,7 @@ class RouteBuilder implements RouteBuilderInterface
 
     public function add(): self
     {
-
+        return $this;
     }
 
     public function create(): RouteInterface

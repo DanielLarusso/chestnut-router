@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Chestnut\Router;
 
+use Chestnut\Http\RequestMethod;
 use Closure;
 
 class Route implements RouteInterface
 {
-    private string $method = 'get';
+    private RequestMethod $method = RequestMethod::GET;
 
     private string $route;
 
@@ -16,12 +17,12 @@ class Route implements RouteInterface
 
     private Closure|array $action;
 
-    public function getMethod(): string
+    public function getMethod(): RequestMethod
     {
         return $this->method;
     }
 
-    public function setMethod(string $method): self
+    public function setMethod(RequestMethod $method): static
     {
         $this->method = $method;
 
@@ -33,7 +34,7 @@ class Route implements RouteInterface
         return $this->route;
     }
 
-    public function setRoute(string $route): self
+    public function setRoute(string $route): static
     {
         $this->route = $route;
 
@@ -45,7 +46,7 @@ class Route implements RouteInterface
         return $this->alias;
     }
 
-    public function setAlias(?string $alias): self
+    public function setAlias(?string $alias): static
     {
         $this->alias = $alias;
 
@@ -57,7 +58,7 @@ class Route implements RouteInterface
         return $this->action;
     }
 
-    public function setAction(array|callable $action): self
+    public function setAction(array|callable $action): static
     {
         $this->action = $action;
 
