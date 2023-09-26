@@ -22,10 +22,16 @@
         {
             "type": "vcs",
             "url": "https://github.com/DanielLarusso/chestnut-utils"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/DanielLarusso/chestnut-collection"
         }
     ],
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "chestnut/collection": "@dev",
+        "chestnut/utils": "@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
